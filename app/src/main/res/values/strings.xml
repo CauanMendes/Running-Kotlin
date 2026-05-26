@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Running</string>
+
+    <!-- Login -->
+    <string name="login_title">Bem-vindo de volta</string>
+    <string name="login_subtitle">Entre para continuar sua jornada</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Senha</string>
+    <string name="btn_login">Entrar</string>
+    <string name="btn_login_biometric">Entrar com biometria</string>
+    <string name="link_create_account">Não tem conta? Cadastre-se</string>
+
+    <!-- Register -->
+    <string name="register_title">Criar conta</string>
+    <string name="register_subtitle">Comece a monitorar suas atividades</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_password_confirm">Confirmar senha</string>
+    <string name="btn_register">Cadastrar</string>
+    <string name="link_have_account">Já tem conta? Entrar</string>
+
+    <!-- Home -->
+    <string name="home_greeting">Olá, %1$s!</string>
+    <string name="home_subtitle">Pronto para se mover hoje?</string>
+    <string name="card_weather_title">Clima</string>
+    <string name="card_weather_body">Clima propício para corrida ☀️</string>
+    <string name="card_start_title">Iniciar atividade</string>
+    <string name="card_start_body">Comece corrida, caminhada ou pedal</string>
+    <string name="card_start_btn">Começar</string>
+    <string name="card_share_title">Compartilhar momento</string>
+    <string name="card_share_body">Registre uma foto da sua atividade</string>
+    <string name="card_share_btn">Câmera</string>
+    <string name="card_chat_title">Chat</string>
+    <string name="card_chat_body">Combine treinos com seus amigos</string>
+    <string name="card_chat_btn">Ver conversas</string>
+    <string name="action_logout">Sair</string>
+
+    <!-- Validation -->
+    <string name="err_fill_fields">Preencha todos os campos</string>
+    <string name="err_invalid_email">E-mail inválido</string>
+    <string name="err_short_password">A senha deve ter ao menos 6 caracteres</string>
+    <string name="err_password_mismatch">As senhas não conferem</string>
+    <string name="err_login_failed">Falha ao entrar: %1$s</string>
+    <string name="err_register_failed">Falha ao cadastrar: %1$s</string>
+    <string name="msg_register_success">Cadastro realizado!</string>
+    <string name="biometric_title">Autentique-se</string>
+    <string name="biometric_subtitle">Use sua biometria para entrar</string>
+    <string name="err_no_saved_user">Faça login com e-mail e senha primeiro</string>
+</resources>
