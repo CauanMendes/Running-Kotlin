@@ -120,7 +120,7 @@
                             android:layout_height="26dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_weather"
-                            android:tint="@color/white" />
+                            app:tint="@color/white" />
                     </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
