@@ -17,4 +17,13 @@ object UserDao {
         val snapshot = db.collection(COLLECTION).document(uid).get().await()
         return snapshot.toObject(User::class.java)
     }
+
+    suspend fun searchByEmail(email: String): User? {
+        val snapshot = db.collection(COLLECTION)
+            .whereEqualTo("email", email.trim())
+            .limit(1)
+            .get()
+            .await()
+        return snapshot.documents.firstOrNull()?.toObject(User::class.java)
+    }
 }

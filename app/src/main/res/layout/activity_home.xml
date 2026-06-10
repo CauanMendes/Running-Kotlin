@@ -91,9 +91,12 @@
 
             <!-- Card Clima / Destaque com cor sólida primary_light -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardWeather"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="@color/primary_light"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"

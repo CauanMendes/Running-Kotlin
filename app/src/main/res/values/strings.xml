@@ -22,7 +22,7 @@
     <string name="home_greeting">Olá, %1$s!</string>
     <string name="home_subtitle">Pronto para se mover hoje?</string>
     <string name="card_weather_title">Clima</string>
-    <string name="card_weather_body">Clima propício para corrida ☀️</string>
+    <string name="card_weather_body">Verifique se o clima está propício</string>
     <string name="card_start_title">Iniciar atividade</string>
     <string name="card_start_body">Comece corrida, caminhada ou pedal</string>
     <string name="card_start_btn">Começar</string>
@@ -45,4 +45,55 @@
     <string name="biometric_title">Autentique-se</string>
     <string name="biometric_subtitle">Use sua biometria para entrar</string>
     <string name="err_no_saved_user">Faça login com e-mail e senha primeiro</string>
+
+    <!-- Weather -->
+    <string name="weather_title">Clima agora</string>
+    <string name="weather_subtitle">Leitura dos sensores do dispositivo</string>
+    <string name="weather_light">Luminosidade</string>
+    <string name="weather_temperature">Temperatura</string>
+    <string name="weather_pressure">Pressão</string>
+    <string name="weather_verdict_good">Clima propício para atividade ☀️</string>
+    <string name="weather_verdict_okay">Condições aceitáveis 🌤️</string>
+    <string name="weather_verdict_bad">Melhor evitar agora ⛅</string>
+    <string name="weather_no_sensor">Sensor indisponível</string>
+    <string name="unit_lux">lux</string>
+    <string name="unit_celsius">°C</string>
+    <string name="unit_hpa">hPa</string>
+
+    <!-- Start activity -->
+    <string name="start_title">Escolha sua atividade</string>
+    <string name="start_subtitle">Vamos monitorar seu treino</string>
+    <string name="type_run">Corrida</string>
+    <string name="type_walk">Caminhada</string>
+    <string name="type_bike">Pedal</string>
+
+    <!-- Tracking -->
+    <string name="tracking_title">Atividade em andamento</string>
+    <string name="tracking_duration">Tempo</string>
+    <string name="tracking_detected">Detectado</string>
+    <string name="tracking_kcal">Calorias</string>
+    <string name="btn_start">Iniciar</string>
+    <string name="btn_pause">Pausar</string>
+    <string name="btn_resume">Retomar</string>
+    <string name="btn_finish">Encerrar</string>
+    <string name="tracking_saved">Atividade salva!</string>
+    <string name="tracking_save_failed">Não foi possível salvar: %1$s</string>
+    <string name="detected_idle">Parado</string>
+    <string name="detected_walking">Caminhando</string>
+    <string name="detected_running">Correndo</string>
+    <string name="detected_cycling">Pedalando</string>
+    <string name="permission_location_denied">Permissão de localização necessária para o mapa</string>
+
+    <!-- Chat -->
+    <string name="chat_list_title">Conversas</string>
+    <string name="chat_empty">Você ainda não tem conversas. Toque em + para adicionar um amigo.</string>
+    <string name="add_friend_title">Adicionar amigo</string>
+    <string name="add_friend_hint">E-mail do amigo</string>
+    <string name="add_friend_btn">Adicionar</string>
+    <string name="add_friend_not_found">Usuário não encontrado</string>
+    <string name="add_friend_self">Você não pode adicionar a si mesmo</string>
+    <string name="chat_input_hint">Digite uma mensagem...</string>
+    <string name="chat_send">Enviar</string>
+    <string name="action_add_friend">Adicionar</string>
+    <string name="action_back">Voltar</string>
 </resources>

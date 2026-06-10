@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.running.R
 import com.example.running.auth.FirebaseAuthHelper
 import com.example.running.databinding.ActivityHomeBinding
+import com.example.running.ui.activity.StartActivity
 import com.example.running.ui.auth.LoginActivity
+import com.example.running.ui.chat.ChatListActivity
+import com.example.running.ui.weather.WeatherActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -27,9 +30,16 @@ class HomeActivity : AppCompatActivity() {
             ?: ""
         binding.tvGreeting.text = getString(R.string.home_greeting, name)
 
-        binding.btnStart.setOnClickListener { todo() }
-        binding.btnShare.setOnClickListener { todo() }
-        binding.btnChat.setOnClickListener { todo() }
+        binding.btnStart.setOnClickListener { goTo(StartActivity::class.java) }
+        binding.btnChat.setOnClickListener { goTo(ChatListActivity::class.java) }
+        binding.cardWeather.setOnClickListener { goTo(WeatherActivity::class.java) }
+        binding.btnShare.setOnClickListener {
+            Toast.makeText(this, "Em breve", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun goTo(clazz: Class<*>) {
+        startActivity(Intent(this, clazz))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,9 +57,5 @@ class HomeActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun todo() {
-        Toast.makeText(this, "Em breve", Toast.LENGTH_SHORT).show()
     }
 }

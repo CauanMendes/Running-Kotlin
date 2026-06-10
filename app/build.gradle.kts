@@ -49,6 +49,9 @@ dependencies {
     implementation(libs.androidx.biometric)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.play.services)
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.osmdroid.android)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)

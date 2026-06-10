@@ -3,7 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.barometer"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.light"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -34,6 +50,26 @@
 
         <activity
             android:name=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.weather.WeatherActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.activity.StartActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.activity.TrackingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.chat.ChatListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.chat.ChatRoomActivity"
             android:exported="false" />
     </application>
 
