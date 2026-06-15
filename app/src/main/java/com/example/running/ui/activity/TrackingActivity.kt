@@ -1,13 +1,17 @@
 package com.example.running.ui.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
 import android.preference.PreferenceManager
-import android.widget.Chronometer
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -16,14 +20,21 @@ import com.example.running.auth.FirebaseAuthHelper
 import com.example.running.dao.ActivityDao
 import com.example.running.databinding.ActivityTrackingBinding
 import com.example.running.helper.MotionState
+import com.example.running.util.Base64Converter
 import com.example.running.helper.SensorHelper
 import com.example.running.model.FitActivity
+import com.example.running.model.TrackPoint
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import kotlinx.coroutines.launch
 import org.osmdroid.config.Configuration
-import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.overlay.MapEventsOverlay
+import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import kotlin.math.roundToInt
@@ -43,10 +54,24 @@ class TrackingActivity : AppCompatActivity() {
     private var detectedState = MotionState.IDLE
     private var locationOverlay: MyLocationNewOverlay? = null
 
+    private lateinit var fusedClient: FusedLocationProviderClient
+    private var locationCallback: LocationCallback? = null
+    private val trackPoints = mutableListOf<TrackPoint>()
+    private var lastTrackedLocation: Location? = null
+    private var distanceMeters: Double = 0.0
+    private val polyline = Polyline().apply {
+        outlinePaint.strokeWidth = 10f
+    }
+
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) enableMyLocation()
             else Toast.makeText(this, R.string.permission_location_denied, Toast.LENGTH_SHORT).show()
+        }
+
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) finishAndSave(uri) else finishAndSave(null)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,32 +90,29 @@ class TrackingActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener { finish() }
 
         activityType = intent.getStringExtra(EXTRA_TYPE) ?: TYPE_RUN
-
         sensors = SensorHelper(this)
+        fusedClient = LocationServices.getFusedLocationProviderClient(this)
+
+        polyline.outlinePaint.color = ContextCompat.getColor(this, R.color.primary)
 
         setupMap()
 
         binding.btnPrimary.setOnClickListener {
             when {
-                !running -> startActivity()
-                paused -> resume()
-                else -> pause()
+                !running -> startTracking()
+                paused -> resumeTracking()
+                else -> pauseTracking()
             }
         }
-        binding.btnFinish.setOnClickListener { finishActivity() }
+        binding.btnFinish.setOnClickListener { showFinishDialog() }
     }
 
     private fun setupMap() {
         binding.mapView.setTileSource(TileSourceFactory.MAPNIK)
         binding.mapView.setMultiTouchControls(true)
-        binding.mapView.controller.setZoom(16.0)
-        binding.mapView.controller.setCenter(GeoPoint(-21.7849, -48.1813)) // Araraquara default
-
-        val tapOverlay = MapEventsOverlay(object : MapEventsReceiver {
-            override fun singleTapConfirmedHelper(p: GeoPoint?) = false
-            override fun longPressHelper(p: GeoPoint?) = false
-        })
-        binding.mapView.overlays.add(tapOverlay)
+        binding.mapView.controller.setZoom(17.0)
+        binding.mapView.controller.setCenter(GeoPoint(-21.7849, -48.1813))
+        binding.mapView.overlays.add(polyline)
 
         if (hasLocationPermission()) {
             enableMyLocation()
@@ -113,7 +135,7 @@ class TrackingActivity : AppCompatActivity() {
         binding.mapView.invalidate()
     }
 
-    private fun startActivity() {
+    private fun startTracking() {
         running = true
         paused = false
         startTimeMs = SystemClock.elapsedRealtime()
@@ -123,61 +145,100 @@ class TrackingActivity : AppCompatActivity() {
         binding.btnPrimary.setText(R.string.btn_pause)
         binding.btnFinish.isEnabled = true
         startSensors()
+        startLocationUpdates()
     }
 
-    private fun pause() {
+    private fun pauseTracking() {
         paused = true
         accumulatedMs += SystemClock.elapsedRealtime() - startTimeMs
         binding.chronometer.stop()
         binding.btnPrimary.setText(R.string.btn_resume)
         sensors.stop()
+        stopLocationUpdates()
     }
 
-    private fun resume() {
+    private fun resumeTracking() {
         paused = false
         startTimeMs = SystemClock.elapsedRealtime()
         binding.chronometer.base = startTimeMs - accumulatedMs
         binding.chronometer.start()
         binding.btnPrimary.setText(R.string.btn_pause)
         startSensors()
+        startLocationUpdates()
     }
 
-    private fun finishActivity() {
+    private fun showFinishDialog() {
         if (!paused) {
             accumulatedMs += SystemClock.elapsedRealtime() - startTimeMs
+            paused = true
         }
         binding.chronometer.stop()
         sensors.stop()
+        stopLocationUpdates()
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.finish_dialog_title)
+            .setMessage(R.string.finish_dialog_msg)
+            .setPositiveButton(R.string.btn_attach_photo) { _, _ ->
+                pickImageLauncher.launch("image/*")
+            }
+            .setNegativeButton(R.string.btn_finish_no_photo) { _, _ ->
+                finishAndSave(null)
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun finishAndSave(photoUri: Uri?) {
         running = false
-        paused = false
+        val uid = FirebaseAuthHelper.currentUser?.uid
+        if (uid == null) {
+            Toast.makeText(this, "Sessão expirada", Toast.LENGTH_SHORT).show()
+            finish(); return
+        }
 
         val durationSec = accumulatedMs / 1000L
         val avgAccel = if (motionSamples > 0) magnitudeSum / motionSamples else 0.0
         val kcal = estimateKcal(activityType, durationSec)
 
-        val uid = FirebaseAuthHelper.currentUser?.uid
-        if (uid == null) {
-            Toast.makeText(this, "Sessão expirada", Toast.LENGTH_SHORT).show()
-            finish()
-            return
-        }
-
-        val record = FitActivity(
-            type = activityType,
-            startedAt = System.currentTimeMillis() - accumulatedMs,
-            durationSec = durationSec,
-            kcal = kcal,
-            detectedType = detectedState.name.lowercase(),
-            avgAccel = avgAccel
-        )
+        binding.btnPrimary.isEnabled = false
+        binding.btnFinish.isEnabled = false
 
         lifecycleScope.launch {
+            val imageBase64 = if (photoUri != null) {
+                Toast.makeText(
+                    this@TrackingActivity, R.string.uploading_image, Toast.LENGTH_SHORT
+                ).show()
+                runCatching {
+                    Base64Converter.uriToString(this@TrackingActivity, photoUri)
+                }.getOrElse {
+                    Log.e(TAG, "Falha ao comprimir imagem", it)
+                    ""
+                }
+            } else ""
+
+            val record = FitActivity(
+                type = activityType,
+                startedAt = System.currentTimeMillis() - accumulatedMs,
+                durationSec = durationSec,
+                kcal = kcal,
+                detectedType = detectedState.name.lowercase(),
+                avgAccel = avgAccel,
+                distanceMeters = distanceMeters,
+                trajectory = trackPoints.toList(),
+                imageBase64 = imageBase64
+            )
+
             runCatching { ActivityDao.save(uid, record) }
                 .onSuccess {
-                    Toast.makeText(this@TrackingActivity, R.string.tracking_saved, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@TrackingActivity, R.string.tracking_saved, Toast.LENGTH_SHORT
+                    ).show()
                     finish()
                 }
                 .onFailure { e ->
+                    binding.btnPrimary.isEnabled = true
+                    binding.btnFinish.isEnabled = true
                     Toast.makeText(
                         this@TrackingActivity,
                         getString(R.string.tracking_save_failed, e.message ?: ""),
@@ -196,8 +257,57 @@ class TrackingActivity : AppCompatActivity() {
                 updateDetectedLabel()
                 updateKcal()
             },
-            onRotation = { /* unused for now */ }
+            onRotation = { }
         )
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        if (!hasLocationPermission()) return
+        if (locationCallback != null) return
+
+        val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 3000L)
+            .setMinUpdateDistanceMeters(3f)
+            .setMinUpdateIntervalMillis(2000L)
+            .build()
+
+        val callback = object : LocationCallback() {
+            override fun onLocationResult(result: LocationResult) {
+                for (loc in result.locations) onNewLocation(loc)
+            }
+        }
+        locationCallback = callback
+        runCatching {
+            fusedClient.requestLocationUpdates(request, callback, mainLooper)
+        }.onFailure { Log.e(TAG, "requestLocationUpdates falhou", it) }
+    }
+
+    private fun stopLocationUpdates() {
+        locationCallback?.let { fusedClient.removeLocationUpdates(it) }
+        locationCallback = null
+    }
+
+    private fun onNewLocation(loc: Location) {
+        val point = TrackPoint(loc.latitude, loc.longitude, System.currentTimeMillis())
+        trackPoints.add(point)
+
+        lastTrackedLocation?.let { prev ->
+            distanceMeters += prev.distanceTo(loc)
+        }
+        lastTrackedLocation = loc
+
+        polyline.addPoint(GeoPoint(loc.latitude, loc.longitude))
+        binding.mapView.invalidate()
+        updateDistanceLabel()
+    }
+
+    private fun updateDistanceLabel() {
+        val tv = binding.tvDistance
+        tv.text = if (distanceMeters >= 1000) {
+            "%.2f %s".format(distanceMeters / 1000.0, getString(R.string.unit_km))
+        } else {
+            "${distanceMeters.roundToInt()} ${getString(R.string.unit_meters)}"
+        }
     }
 
     private fun updateDetectedLabel() {
@@ -239,12 +349,16 @@ class TrackingActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         binding.mapView.onPause()
-        if (!running) sensors.stop()
+        if (!running) {
+            sensors.stop()
+            stopLocationUpdates()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         sensors.stop()
+        stopLocationUpdates()
         locationOverlay?.disableMyLocation()
     }
 
@@ -253,5 +367,6 @@ class TrackingActivity : AppCompatActivity() {
         const val TYPE_RUN = "run"
         const val TYPE_WALK = "walk"
         const val TYPE_BIKE = "bike"
+        private const val TAG = "TrackingActivity"
     }
 }

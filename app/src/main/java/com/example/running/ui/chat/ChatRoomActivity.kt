@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.running.auth.FirebaseAuthHelper
 import com.example.running.dao.MessageDao
 import com.example.running.databinding.ActivityChatRoomBinding
+import com.example.running.helper.MessageNotifier
 import com.example.running.model.Message
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.launch
@@ -43,6 +44,7 @@ class ChatRoomActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        MessageNotifier.openChatId = chatId
         listener = MessageDao.listen(chatId) { messages ->
             adapter.submit(messages)
             if (messages.isNotEmpty()) {
@@ -53,6 +55,9 @@ class ChatRoomActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        if (MessageNotifier.openChatId == chatId) {
+            MessageNotifier.openChatId = null
+        }
         listener?.remove()
         listener = null
     }

@@ -7,10 +7,12 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.example.running.R
 import com.example.running.auth.BiometricHelper
 import com.example.running.auth.FirebaseAuthHelper
+import com.example.running.dao.UserDao
 import com.example.running.databinding.ActivityLoginBinding
 import com.example.running.ui.home.HomeActivity
 import kotlinx.coroutines.launch
@@ -55,8 +57,10 @@ class LoginActivity : AppCompatActivity() {
         setLoading(true)
         lifecycleScope.launch {
             runCatching { FirebaseAuthHelper.signIn(email, password) }
-                .onSuccess {
+                .onSuccess { user ->
                     saveLastEmail(email)
+                    runCatching { UserDao.ensureUser(user) }
+                        .onFailure { e -> Log.e(TAG, "ensureUser falhou", e) }
                     goHome()
                 }
                 .onFailure { e ->
@@ -108,5 +112,6 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         const val PREFS = "running_prefs"
         const val KEY_LAST_EMAIL = "last_email"
+        private const val TAG = "LoginActivity"
     }
 }

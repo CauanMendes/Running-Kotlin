@@ -26,9 +26,9 @@
     <string name="card_start_title">Iniciar atividade</string>
     <string name="card_start_body">Comece corrida, caminhada ou pedal</string>
     <string name="card_start_btn">Começar</string>
-    <string name="card_share_title">Compartilhar momento</string>
-    <string name="card_share_body">Registre uma foto da sua atividade</string>
-    <string name="card_share_btn">Câmera</string>
+    <string name="card_share_title">Histórico</string>
+    <string name="card_share_body">Veja suas atividades salvas</string>
+    <string name="card_share_btn">Ver</string>
     <string name="card_chat_title">Chat</string>
     <string name="card_chat_body">Combine treinos com seus amigos</string>
     <string name="card_chat_btn">Ver conversas</string>
@@ -59,6 +59,11 @@
     <string name="unit_lux">lux</string>
     <string name="unit_celsius">°C</string>
     <string name="unit_hpa">hPa</string>
+    <string name="weather_source_sensor">via sensor do dispositivo</string>
+    <string name="weather_source_api">via localização (Open-Meteo)</string>
+    <string name="weather_source_unknown">sem dados</string>
+    <string name="weather_loading">Buscando dados climáticos…</string>
+    <string name="weather_cloud_cover">Nuvens</string>
 
     <!-- Start activity -->
     <string name="start_title">Escolha sua atividade</string>
@@ -83,6 +88,22 @@
     <string name="detected_running">Correndo</string>
     <string name="detected_cycling">Pedalando</string>
     <string name="permission_location_denied">Permissão de localização necessária para o mapa</string>
+    <string name="finish_dialog_title">Encerrar atividade</string>
+    <string name="finish_dialog_msg">Deseja anexar uma foto desta atividade?</string>
+    <string name="btn_attach_photo">Anexar foto</string>
+    <string name="btn_finish_no_photo">Salvar sem foto</string>
+    <string name="uploading_image">Enviando foto…</string>
+    <string name="tracking_distance">Distância</string>
+    <string name="unit_meters">m</string>
+    <string name="unit_km">km</string>
+
+    <!-- History -->
+    <string name="history_title">Histórico de atividades</string>
+    <string name="history_empty">Você ainda não tem atividades registradas.</string>
+    <string name="history_detail_title">Detalhes</string>
+    <string name="history_no_route">Sem trajeto registrado</string>
+    <string name="history_no_photo">Sem foto</string>
+    <string name="history_avg_accel">Acel. média</string>
 
     <!-- Chat -->
     <string name="chat_list_title">Conversas</string>

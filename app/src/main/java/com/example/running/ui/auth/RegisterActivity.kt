@@ -2,6 +2,7 @@ package com.example.running.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -11,7 +12,6 @@ import com.example.running.R
 import com.example.running.auth.FirebaseAuthHelper
 import com.example.running.dao.UserDao
 import com.example.running.databinding.ActivityRegisterBinding
-import com.example.running.model.User
 import com.example.running.ui.home.HomeActivity
 import kotlinx.coroutines.launch
 
@@ -49,23 +49,23 @@ class RegisterActivity : AppCompatActivity() {
 
         setLoading(true)
         lifecycleScope.launch {
-            runCatching {
-                val firebaseUser = FirebaseAuthHelper.signUp(email, password, name)
-                UserDao.createUser(
-                    User(
-                        uid = firebaseUser.uid,
-                        displayName = name,
-                        email = email
-                    )
-                )
-            }.onSuccess {
-                toast(R.string.msg_register_success)
-                startActivity(Intent(this@RegisterActivity, HomeActivity::class.java))
-                finishAffinity()
-            }.onFailure { e ->
+            val firebaseUser = try {
+                FirebaseAuthHelper.signUp(email, password, name)
+            } catch (e: Exception) {
                 setLoading(false)
                 toast(getString(R.string.err_register_failed, e.message ?: ""))
+                return@launch
             }
+
+            runCatching {
+                UserDao.ensureUser(firebaseUser, displayName = name)
+            }.onFailure { e ->
+                Log.e(TAG, "Falha ao criar doc do usuário (auth OK)", e)
+            }
+
+            toast(R.string.msg_register_success)
+            startActivity(Intent(this@RegisterActivity, HomeActivity::class.java))
+            finishAffinity()
         }
     }
 
@@ -79,4 +79,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun toast(msg: String) =
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+
+    companion object {
+        private const val TAG = "RegisterActivity"
+    }
 }

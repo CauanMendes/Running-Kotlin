@@ -11,12 +11,12 @@ object FirebaseAuthHelper {
     val currentUser: FirebaseUser? get() = auth.currentUser
 
     suspend fun signIn(email: String, password: String): FirebaseUser {
-        val result = auth.signInWithEmailAndPassword(email, password).await()
+        val result = auth.signInWithEmailAndPassword(email.trim().lowercase(), password).await()
         return result.user ?: error("Usuário não encontrado")
     }
 
     suspend fun signUp(email: String, password: String, displayName: String): FirebaseUser {
-        val result = auth.createUserWithEmailAndPassword(email, password).await()
+        val result = auth.createUserWithEmailAndPassword(email.trim().lowercase(), password).await()
         val user = result.user ?: error("Falha ao criar usuário")
         val profileUpdates = com.google.firebase.auth.UserProfileChangeRequest.Builder()
             .setDisplayName(displayName)
