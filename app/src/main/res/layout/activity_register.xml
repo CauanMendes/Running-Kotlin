@@ -93,6 +93,7 @@
                     android:layout_marginTop="24dp"
                     android:hint="@string/hint_name"
                     app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
                     app:boxCornerRadiusTopStart="12dp"
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusBottomStart="12dp"
@@ -104,7 +105,10 @@
                         android:id="@+id/etName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/black"
+                        app:hintTextColor="@color/primary"
+                        android:textColorHint="@android:color/darker_gray" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Email -->
@@ -116,6 +120,7 @@
                     android:layout_marginTop="14dp"
                     android:hint="@string/hint_email"
                     app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
                     app:boxCornerRadiusTopStart="12dp"
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusBottomStart="12dp"
@@ -127,7 +132,10 @@
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        app:hintTextColor="@color/primary"
+                        android:textColorHint="@android:color/darker_gray" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Senha -->
@@ -139,6 +147,7 @@
                     android:layout_marginTop="14dp"
                     android:hint="@string/hint_password"
                     app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
                     app:boxCornerRadiusTopStart="12dp"
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusBottomStart="12dp"
@@ -151,7 +160,10 @@
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:textColor="@android:color/black"
+                        app:hintTextColor="@color/primary"
+                        android:textColorHint="@android:color/darker_gray" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Confirmar Senha -->
@@ -163,6 +175,7 @@
                     android:layout_marginTop="14dp"
                     android:hint="@string/hint_password_confirm"
                     app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
                     app:boxCornerRadiusTopStart="12dp"
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusBottomStart="12dp"
@@ -175,7 +188,10 @@
                         android:id="@+id/etPasswordConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:textColor="@android:color/black"
+                        app:hintTextColor="@color/primary"
+                        android:textColorHint="@android:color/darker_gray" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Chip de dica de senha -->

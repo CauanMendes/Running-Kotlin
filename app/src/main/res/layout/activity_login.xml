@@ -29,18 +29,15 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="72dp"
                     android:layout_height="72dp"
-                    app:cardBackgroundColor="#33FFFFFF"
                     app:cardCornerRadius="36dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#66FFFFFF"
-                    app:strokeWidth="1.5dp">
+                    app:strokeWidth="1dp">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_leaf"
-                        app:tint="@color/white" />
+                        android:src="@mipmap/ic_icon" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView
@@ -104,6 +101,7 @@
                     android:layout_marginTop="24dp"
                     android:hint="@string/hint_email"
                     app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
                     app:boxCornerRadiusTopStart="12dp"
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusBottomStart="12dp"
@@ -115,7 +113,10 @@
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        app:hintTextColor="@color/primary"
+                        android:textColorHint="@android:color/darker_gray" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -126,19 +127,24 @@
                     android:layout_marginTop="14dp"
                     android:hint="@string/hint_password"
                     app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
                     app:boxCornerRadiusTopStart="12dp"
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusBottomStart="12dp"
                     app:boxCornerRadiusBottomEnd="12dp"
                     app:startIconDrawable="@drawable/ic_lock"
                     app:startIconTint="@color/primary"
+                    app:endIconTint="@android:color/black"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:textColor="@android:color/black"
+                        app:hintTextColor="@color/primary"
+                        android:textColorHint="@android:color/darker_gray" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
