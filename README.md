@@ -1,6 +1,6 @@
 # 🏃🏻‍➡️ Running
 
-> Aplicativo Android de atividades ao ar livre com tema visual **Aqua Green / Sea Green** e design moderno Material 3.
+> Aplicativo Android de corrida, caminha e bike, para compartilhar com amigos.
 
 ---
 
