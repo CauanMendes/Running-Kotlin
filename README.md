@@ -1,4 +1,4 @@
-# 🌿 CanarinhApp
+# 🏃🏻‍➡️ Running
 
 > Aplicativo Android de atividades ao ar livre com tema visual **Aqua Green / Sea Green** e design moderno Material 3.
 
@@ -33,7 +33,7 @@
 
 [![Demonstração do App](screenshots/video_thumb.png)](videos/demo_canарinhapp.mp4)
 
-> 📂 `videos/demo_canarinhapp.mp4` — Vídeo completo mostrando o fluxo de uso do aplicativo.
+> 📂 `videos/demo_running.mp4` — Vídeo completo mostrando o fluxo de uso do aplicativo.
 
 ---
 
