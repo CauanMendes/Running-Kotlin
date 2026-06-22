@@ -67,16 +67,16 @@
 ### 🏠 Home
 - Tela principal com **saudação personalizada** ao usuário
 - **Card de clima** com temperatura e condição atual
-- Acesso rápido às funcionalidades: Iniciar, Compartilhar e Chat
+- Acesso rápido às funcionalidades: Clima, Iniciar atividade, Histórico e Chat
 
-### 🏃 Atividades (Start)
+### 🏃 Atividades (Activity)
 - Seleção do tipo de atividade: **Correr**, **Caminhar** ou **Pedalar**
 - Interface com cards interativos e ícones por tipo de atividade
 
 ### 📍 Rastreamento (Tracking)
-- **Mapa em tempo real** com rota desenhada via OSMDroid
+- **Mapa em tempo real** com rota desenhada via GPS da Google
 - **Cronômetro** de duração da atividade
-- Exibição de **distância percorrida** (em metros/km)
+- Exibição de **distância percorrida** (em metros)
 - Cálculo de **calorias gastas** (kcal)
 - Detecção automática de atividade via sensores do dispositivo
 - Botões **Iniciar** e **Finalizar** com estado habilitado/desabilitado
