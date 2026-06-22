@@ -108,7 +108,7 @@
 | Tecnologia | Versão | Uso |
 |---|---|---|
 | **Kotlin** | 1.9+ | Linguagem principal |
-| **Android SDK** | API 26+ | Plataforma alvo |
+| **Android SDK** | API 33 | Plataforma alvo |
 | **Gradle** | 8.x | Build system |
 
 ### UI / Design
@@ -150,13 +150,13 @@
 ### Pré-requisitos
 - Android Studio Hedgehog ou superior
 - JDK 17
-- Dispositivo ou emulador com API 26+
+- Dispositivo ou emulador com API 33+
 
 ### Configuração
 ```bash
 # Clone o repositório
-git clone https://github.com/Tiago7mendes/canarinhapp.git
-cd canarinhapp
+git clone https://github.com/CauanMendes/Running-Kotlin.git
+cd running-kotlin
 ```
 
 1. Adicione o arquivo `google-services.json` na pasta `app/` (obtido no Firebase Console)
