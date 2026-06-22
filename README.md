@@ -9,15 +9,15 @@
 <table>
   <tr>
     <td align="center">
-      <img src="app/src/main/res/drawable/fto1.jpeg" width="180"/><br/>
+      <img src="app/src/main/res/drawable/fto1.jpeg" width="250"/><br/>
       <sub>Login</sub>
     </td>
     <td align="center">
-      <img src="app/src/main/res/drawable/fto2.jpeg" width="180"/><br/>
+      <img src="app/src/main/res/drawable/fto2.jpeg" width="250"/><br/>
       <sub>Register</sub>
     </td>
     <td align="center">
-      <img src="app/src/main/res/drawable/fto3.jpeg" width="180"/><br/>
+      <img src="app/src/main/res/drawable/fto3.jpeg" width="250"/><br/>
       <sub>Home</sub>
     </td>
   </tr>
@@ -26,15 +26,15 @@
 <table>
   <tr>
     <td align="center">
-      <img src="app/src/main/res/drawable/fto4.jpeg" width="180"/><br/>
+      <img src="app/src/main/res/drawable/fto4.jpeg" width="250"/><br/>
       <sub>Activity</sub>
     </td>
     <td align="center">
-      <img src="app/src/main/res/drawable/fto5.jpeg" width="180"/><br/>
+      <img src="app/src/main/res/drawable/fto5.jpeg" width="250"/><br/>
       <sub>Tracking</sub>
     </td>
     <td align="center">
-      <img src="app/src/main/res/drawable/fto6.jpeg" width="180"/><br/>
+      <img src="app/src/main/res/drawable/fto6.jpeg" width="250"/><br/>
       <sub>Weather</sub>
     </td>
   </tr>
@@ -44,8 +44,16 @@
 
 ## 🎬 Vídeo Demonstrativo
 
-[![Demonstração do App](app/src/main/res/drawable/fto1.jpeg)](app/src/main/res/drawable/video.gif)
-
+<table>
+  <tr>
+    <td align="center">
+      <a href="app/src/main/res/drawable/video.gif">
+        <img src="app/src/main/res/drawable/fto1.jpeg" width="300" alt="Demonstração do App"/><br/>
+      </a>
+      <sub>Assista o vídeo demonstrativo</sub>
+    </td>
+  </tr>
+</table>
 ---
 
 ## 📋 Funcionalidades
@@ -177,16 +185,10 @@ dependencies {
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
 
-**Cauan Mendes
+**Cauan Mendes** **e**
 **Tiago Setti Mendes**
 - GitHub: [@Tiago7mendes](https://github.com/Tiago7mendes)
 [@CauanMendes](https://github.com/cauanmendes)
 - Curso: Análise e Desenvolvimento de Sistemas — IFSP Araraquara
-
----
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
