@@ -74,7 +74,7 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     app:backgroundTint="@color/primary"
-                    app:icon="@drawable/ic_share"
+                    app:icon="@drawable/baseline_arrow_forward_24"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:iconTint="@color/white" />

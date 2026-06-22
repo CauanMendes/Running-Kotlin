@@ -57,7 +57,7 @@
                     android:layout_height="48dp"
                     android:background="@drawable/circle_white_alpha"
                     android:padding="10dp"
-                    android:src="@drawable/ic_play_circle"
+                    android:src="@drawable/ic_corrida"
                     app:tint="@color/primary" />
 
                 <TextView
@@ -133,7 +133,7 @@
                     android:layout_height="48dp"
                     android:background="@drawable/circle_white_alpha"
                     android:padding="10dp"
-                    android:src="@drawable/ic_share"
+                    android:src="@drawable/ic_bike"
                     app:tint="@color/primary" />
 
                 <TextView

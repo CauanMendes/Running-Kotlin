@@ -9,20 +9,33 @@
 <table>
   <tr>
     <td align="center">
-      <img src="screenshots/screenshot_login.png" width="180"/><br/>
+      <img src="app/src/main/res/drawable/fto1.jpeg" width="180"/><br/>
       <sub>Login</sub>
     </td>
     <td align="center">
-      <img src="screenshots/screenshot_home.png" width="180"/><br/>
-      <sub>Home</sub>
+      <img src="app/src/main/res/drawable/fto2.jpeg" width="180"/><br/>
+      <sub>Register</sub>
     </td>
     <td align="center">
-      <img src="screenshots/screenshot_tracking.png" width="180"/><br/>
+      <img src="app/src/main/res/drawable/fto3.jpeg" width="180"/><br/>
+      <sub>Home</sub>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td align="center">
+      <img src="app/src/main/res/drawable/fto4.jpeg" width="180"/><br/>
+      <sub>Activity</sub>
+    </td>
+    <td align="center">
+      <img src="app/src/main/res/drawable/fto5.jpeg" width="180"/><br/>
       <sub>Tracking</sub>
     </td>
     <td align="center">
-      <img src="screenshots/screenshot_weather.png" width="180"/><br/>
-      <sub>Clima</sub>
+      <img src="app/src/main/res/drawable/fto6.jpeg" width="180"/><br/>
+      <sub>Weather</sub>
     </td>
   </tr>
 </table>
@@ -31,9 +44,7 @@
 
 ## 🎬 Vídeo Demonstrativo
 
-[![Demonstração do App](screenshots/video_thumb.png)](videos/demo_canарinhapp.mp4)
-
-> 📂 `videos/demo_running.mp4` — Vídeo completo mostrando o fluxo de uso do aplicativo.
+[![Demonstração do App](app/src/main/res/drawable/fto1.jpeg)](app/src/main/res/drawable/video.gif)
 
 ---
 

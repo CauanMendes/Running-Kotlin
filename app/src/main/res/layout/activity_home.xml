@@ -269,7 +269,7 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_share"
+                            android:src="@drawable/baseline_backup_24"
                             app:tint="@color/accent_lime" />
                     </com.google.android.material.card.MaterialCardView>
 
