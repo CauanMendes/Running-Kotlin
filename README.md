@@ -74,7 +74,7 @@
 - Interface com cards interativos e ícones por tipo de atividade
 
 ### 📍 Rastreamento (Tracking)
-- **Mapa em tempo real** com rota desenhada via GPS da Google
+- **Mapa em tempo real** com rota desenhada via OSMDroid
 - **Cronômetro** de duração da atividade
 - Exibição de **distância percorrida** (em metros)
 - Cálculo de **calorias gastas** (kcal)
